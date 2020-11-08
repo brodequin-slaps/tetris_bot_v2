@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/workspaces/tetris_bot_v2/include/Board.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Board.hpp
 array
 -
 immintrin.h
@@ -14,17 +14,17 @@ immintrin.h
 iostream
 -
 Tetrimino.hpp
-/workspaces/tetris_bot_v2/include/Tetrimino.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Tetrimino.hpp
 constants.hpp
-/workspaces/tetris_bot_v2/include/constants.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/constants.hpp
 
-/workspaces/tetris_bot_v2/include/Chromosome.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Chromosome.hpp
 
-/workspaces/tetris_bot_v2/include/Converter.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Converter.hpp
 
-/workspaces/tetris_bot_v2/include/Evolution.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Evolution.hpp
 
-/workspaces/tetris_bot_v2/include/Galgo.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Galgo.hpp
 algorithm
 -
 bitset
@@ -66,29 +66,29 @@ cstring
 omp.h
 -
 Randomize.hpp
-/workspaces/tetris_bot_v2/include/Randomize.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Randomize.hpp
 Converter.hpp
-/workspaces/tetris_bot_v2/include/Converter.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Converter.hpp
 Parameter.hpp
-/workspaces/tetris_bot_v2/include/Parameter.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Parameter.hpp
 Evolution.hpp
-/workspaces/tetris_bot_v2/include/Evolution.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Evolution.hpp
 Chromosome.hpp
-/workspaces/tetris_bot_v2/include/Chromosome.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Chromosome.hpp
 Population.hpp
-/workspaces/tetris_bot_v2/include/Population.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Population.hpp
 GeneticAlgorithm.hpp
-/workspaces/tetris_bot_v2/include/GeneticAlgorithm.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/GeneticAlgorithm.hpp
 
-/workspaces/tetris_bot_v2/include/GeneticAlgorithm.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/GeneticAlgorithm.hpp
 
-/workspaces/tetris_bot_v2/include/Parameter.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Parameter.hpp
 
-/workspaces/tetris_bot_v2/include/Population.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Population.hpp
 
-/workspaces/tetris_bot_v2/include/Randomize.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Randomize.hpp
 
-/workspaces/tetris_bot_v2/include/Tetrimino.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Tetrimino.hpp
 utility
 -
 string
@@ -98,17 +98,17 @@ array
 tuple
 -
 constants.hpp
-/workspaces/tetris_bot_v2/include/constants.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/constants.hpp
 helpers.hpp
-/workspaces/tetris_bot_v2/include/helpers.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/helpers.hpp
 
-/workspaces/tetris_bot_v2/include/constants.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/constants.hpp
 cstdint
 -
 math.h
 -
 
-/workspaces/tetris_bot_v2/include/helpers.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/helpers.hpp
 cstdint
 -
 chrono
@@ -116,9 +116,9 @@ chrono
 type_traits
 -
 constants.hpp
-/workspaces/tetris_bot_v2/include/constants.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/constants.hpp
 
-/workspaces/tetris_bot_v2/include/tetris.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/tetris.hpp
 iostream
 -
 variant
@@ -132,11 +132,11 @@ random
 functional
 -
 Board.hpp
-/workspaces/tetris_bot_v2/include/Board.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Board.hpp
 helpers.hpp
-/workspaces/tetris_bot_v2/include/helpers.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/helpers.hpp
 
-/workspaces/tetris_bot_v2/src/main.cpp
+/home/sam/dev/c++/tetris_bot_v2/src/main.cpp
 iostream
 -
 variant
@@ -152,13 +152,13 @@ functional
 utility
 -
 ../include/Tetrimino.hpp
-/workspaces/tetris_bot_v2/include/Tetrimino.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Tetrimino.hpp
 ../include/helpers.hpp
-/workspaces/tetris_bot_v2/include/helpers.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/helpers.hpp
 ../include/Board.hpp
-/workspaces/tetris_bot_v2/include/Board.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Board.hpp
 ../include/tetris.hpp
-/workspaces/tetris_bot_v2/include/tetris.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/tetris.hpp
 ../include/Galgo.hpp
-/workspaces/tetris_bot_v2/include/Galgo.hpp
+/home/sam/dev/c++/tetris_bot_v2/include/Galgo.hpp
 

@@ -11,7 +11,7 @@
 #include "helpers.hpp"
 
 //returns the number of deaths
-double tetris_play_v2(uint64_t num_steps, std::vector<double> const& params)
+uint64_t tetris_play_v2(uint64_t num_steps, std::vector<double> const& params)
 {
     using namespace std;
 
@@ -30,7 +30,7 @@ double tetris_play_v2(uint64_t num_steps, std::vector<double> const& params)
     reset(*input_board);
 
     int i = 0;
-    int64_t death_count = 0;
+    uint64_t death_count = 0;
     while (i++ < num_steps)
     {
         int tet_rand = tetrimino_rand();

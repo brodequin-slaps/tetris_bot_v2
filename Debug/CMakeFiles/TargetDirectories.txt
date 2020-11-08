@@ -1,3 +1,0 @@
-/workspaces/tetris_bot_v2/Debug/CMakeFiles/rebuild_cache.dir
-/workspaces/tetris_bot_v2/Debug/CMakeFiles/tetris_bot_v2.dir
-/workspaces/tetris_bot_v2/Debug/CMakeFiles/edit_cache.dir

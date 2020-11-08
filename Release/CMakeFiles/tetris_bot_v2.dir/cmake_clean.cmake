@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/tetris_bot_v2.dir/src/main.cpp.o"
-  "tetris_bot_v2.pdb"
   "tetris_bot_v2"
+  "tetris_bot_v2.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

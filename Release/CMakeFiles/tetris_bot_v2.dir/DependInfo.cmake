@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/workspaces/tetris_bot_v2/src/main.cpp" "/workspaces/tetris_bot_v2/Release/CMakeFiles/tetris_bot_v2.dir/src/main.cpp.o"
+  "/home/sam/dev/c++/tetris_bot_v2/src/main.cpp" "/home/sam/dev/c++/tetris_bot_v2/Release/CMakeFiles/tetris_bot_v2.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -6,7 +6,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 set(CMAKE_CXX_FLAGS_DEBUG "-mbmi2 -fopenmp")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -mbmi2 -fopenmp -finline-functions -Winline")
+set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -mbmi2 -fopenmp -finline-functions -Winline")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

@@ -1,1 +1,0 @@
-/usr/bin/c++  -mbmi2 -fopenmp   CMakeFiles/tetris_bot_v2.dir/src/main.cpp.o  -o tetris_bot_v2 

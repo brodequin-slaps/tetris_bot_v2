@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -mbmi2 -fopenmp -finline-functions -Winline   CMakeFiles/tetris_bot_v2.dir/src/main.cpp.o  -o tetris_bot_v2 

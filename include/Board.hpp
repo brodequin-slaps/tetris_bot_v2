@@ -73,7 +73,7 @@ uint16_t getNumberOfHoles(Board const& board)
 uint16_t getColumnsDifferences(Board const& board)
 {
     uint16_t differences = 0;
-    for (int i = 0; i < board.size(); i++)
+    for (int i = 0; i < board.size() - 1; i++)
     {
         differences += sqrt(abs(col_height(board, i) - col_height(board, i+1)));
     }
@@ -130,10 +130,106 @@ uint8_t destroy_lines(Board& board)
     return destroyed;
 }
 
+void destroy_lines_internet(Board& board, height_t mask)
+{
+    mask =~ mask;
+    for (int i = 0; i < board.size(); i++)
+    {
+        board[i] = (height_t)_pext_u32(board[i], mask);
+    }
+}
+
+double evaluate_board_GA_internet(Board const& board, int drop_height, height_t& line_mask, std::vector<double> const& params)
+{
+    //{-7.41268024719615503670411271741613745689392089843750, 9.55321583886473035818198695778846740722656250000000, -9.36675059128709897038334020180627703666687011718750, -3.28542000457770644317179176141507923603057861328125, }
+    uint16_t holes = 0;
+    uint16_t aggregate_height = 0;
+    uint16_t completed_lines = 0;
+    uint16_t bumpiness = 0;
+    //uint16_t column_transitions = 0;
+    //uint16_t row_transitions = 0;
+
+    //first iteration to build the first item
+    height_t prev_height = col_height(board, 0);
+    aggregate_height += prev_height;
+    line_mask = board[0];
+    holes += prev_height - __builtin_popcount(board[0]);
+    //row_transitions += __builtin_popcount(FULL_COLUMN ^ board[0]);
+
+    //continue from the 2nd element
+    for (int i = 1; i < board.size(); i++)
+    {
+        height_t height = col_height(board, i);
+        aggregate_height += height;
+        holes += height - __builtin_popcount(board[i]);
+        bumpiness += abs(prev_height - height);
+        prev_height = height;
+        line_mask &= board[i];
+        //column_transitions += __builtin_popcount(board[i] ^ ((board[i] << 1) + 1));
+        //row_transitions += __builtin_popcount(board[i-1] ^ board[i]);
+    }
+
+    //row_transitions += __builtin_popcount(FULL_COLUMN ^ board[board.size() - 1]);
+    int destroyed = __builtin_popcount(line_mask);
+
+    return params[0]*aggregate_height +
+        params[1]*destroyed +
+        params[2]*holes +
+        params[3]*bumpiness;
+        //params[4]*drop_height +
+        //params[5]*column_transitions;
+        //params[7]*row_transitions;
+
+}
+
+double evaluate_board_GA_internet_no_params(Board const& board, height_t& line_mask)
+{
+    //{-7.41268024719615503670411271741613745689392089843750, 9.55321583886473035818198695778846740722656250000000, -9.36675059128709897038334020180627703666687011718750, -3.28542000457770644317179176141507923603057861328125, }
+    uint16_t holes = 0;
+    uint16_t aggregate_height = 0;
+    uint16_t completed_lines = 0;
+    uint16_t bumpiness = 0;
+    //uint16_t column_transitions = 0;
+    //uint16_t row_transitions = 0;
+
+    //first iteration to build the first item
+    height_t prev_height = col_height(board, 0);
+    aggregate_height += prev_height;
+    line_mask = board[0];
+    holes += prev_height - __builtin_popcount(board[0]);
+    //row_transitions += __builtin_popcount(FULL_COLUMN ^ board[0]);
+
+    //continue from the 2nd element
+    for (int i = 1; i < board.size(); i++)
+    {
+        height_t height = col_height(board, i);
+        aggregate_height += height;
+        holes += height - __builtin_popcount(board[i]);
+        bumpiness += abs(prev_height - height);
+        prev_height = height;
+        line_mask &= board[i];
+        //column_transitions += __builtin_popcount(board[i] ^ ((board[i] << 1) + 1));
+        //row_transitions += __builtin_popcount(board[i-1] ^ board[i]);
+    }
+
+    //row_transitions += __builtin_popcount(FULL_COLUMN ^ board[board.size() - 1]);
+    int destroyed = __builtin_popcount(line_mask);
+
+    static const std::vector<double> params{-7.41268024719615503670411271741613745689392089843750, 9.55321583886473035818198695778846740722656250000000, -9.36675059128709897038334020180627703666687011718750, -3.28542000457770644317179176141507923603057861328125, };
+
+    return params[0]*aggregate_height +
+        params[1]*destroyed +
+        params[2]*holes +
+        params[3]*bumpiness;
+        //params[4]*drop_height +
+        //params[5]*column_transitions;
+        //params[7]*row_transitions;
+}
+
 double evaluate_board_GA_v1(Board const& board, uint8_t destroyedLines, height_t dropHeight, std::vector<double> const& params)
 {
     //these are the optimized params
-    //
+    //{6.12451361867704235919518396258354187011718750000000, -3.92324711985961727123140008188784122467041015625000, -4.63340199893186888147056379239074885845184326171875, -6.56885633630884235856228769989684224128723144531250, -2.52460517280842289267184241907671093940734863281250, 1.08781567101548759524121123831719160079956054687500, }
 
     float rowTransitions = getRowTransitions(board);
     float columnTransitions = getColumnTransitions(board);
@@ -146,6 +242,24 @@ double evaluate_board_GA_v1(Board const& board, uint8_t destroyedLines, height_t
         params[3] * columnTransitions +
         params[4] * numberOfHoles +
         params[5] * columnDifferences;
+}
+
+double evaluate_board_GA_v1_no_params(Board const& board, uint8_t destroyedLines, height_t dropHeight)
+{
+    //these are the optimized params
+    //{6.12451361867704235919518396258354187011718750000000, -3.92324711985961727123140008188784122467041015625000, -4.63340199893186888147056379239074885845184326171875, -6.56885633630884235856228769989684224128723144531250, -2.52460517280842289267184241907671093940734863281250, 1.08781567101548759524121123831719160079956054687500, }
+
+    float rowTransitions = getRowTransitions(board);
+    float columnTransitions = getColumnTransitions(board);
+    float numberOfHoles = getNumberOfHoles(board);
+    float columnDifferences = getColumnsDifferences(board);
+
+    return 6.1245136186770423591951839625835418701171875 * destroyedLines +
+        -3.92324711985961727123140008188784122467041015625 *  dropHeight +
+        -4.63340199893186888147056379239074885845184326171875 * rowTransitions +
+        -6.56885633630884235856228769989684224128723144531250 * columnTransitions +
+        -2.52460517280842289267184241907671093940734863281250 * numberOfHoles +
+        1.08781567101548759524121123831719160079956054687500 * columnDifferences;
 }
 
 double evaluate_board_GA_v2(Board const& board, uint8_t destroyedLines, height_t dropHeight, std::vector<double> const& params)
@@ -166,7 +280,7 @@ double evaluate_board_GA_v2(Board const& board, uint8_t destroyedLines, height_t
 }
 
 template<typename... Ts>
-void find_best_board_v2(Tetrimino<Ts...> const& tetrimino, Board const* input_board, Board*& best_board, Board*& test_board, double& best_score, std::vector<double> const& params)
+void find_best_board_original(Tetrimino<Ts...> const& tetrimino, Board const* input_board, Board*& best_board, Board*& test_board, double& best_score, std::vector<double> const& params)
 {
     best_score = -INFINITY;
     *test_board = *input_board;
@@ -204,6 +318,61 @@ void find_best_board_v2(Tetrimino<Ts...> const& tetrimino, Board const* input_bo
             }
 
             *test_board = *input_board;
+        }
+    }, tetrimino.tetrimino_rotations);
+}
+
+template<bool no_param, typename... Ts>
+void find_best_board_internet(Tetrimino<Ts...> const& tetrimino, Board const* input_board, Board*& best_board, Board*& test_board, double& best_score, std::vector<double> const& params)
+{
+    best_score = -INFINITY;
+    *test_board = *input_board;
+
+    foreach_tuple([&](auto const& tetrimino_rotation)
+    {
+        for (width_t i = 0; i < BLOCKS_W - tetrimino_rotation.tet_cols.size() + 1 ; i++)
+        {
+            int highest_drop_height = find_drop_height(*test_board, tetrimino_rotation, i, 0);
+            
+            //can be optimized because if we cannot place it somewhere, high chances of cannot be placed +1 or -1
+            for (width_t col_tetrimino = 1; col_tetrimino < tetrimino_rotation.tet_cols.size(); col_tetrimino++)
+            {
+                int drop_height = find_drop_height(*test_board, tetrimino_rotation, i + col_tetrimino, col_tetrimino);
+                if (drop_height > highest_drop_height)
+                {
+                    highest_drop_height = drop_height;
+                }
+            }
+
+            // if this cannot be placed here
+            if (highest_drop_height + tetrimino_rotation.height - 1 >= BLOCKS_H)
+            {
+                continue;
+            }
+            place_tetrimino(*test_board, tetrimino_rotation, i, highest_drop_height);
+
+            height_t line_mask;
+            double test_board_score;
+            if constexpr (no_param)
+            {
+                test_board_score = evaluate_board_GA_internet_no_params(*test_board, line_mask);
+            }
+            else
+            {
+                test_board_score = evaluate_board_GA_internet(*test_board, highest_drop_height, line_mask, params);
+            }
+
+            if (test_board_score > best_score)
+            {
+                best_score = test_board_score;
+                destroy_lines_internet(*test_board, line_mask);
+                swap(test_board, best_board);
+                *test_board = *input_board;
+            }
+            else
+            {
+                unplace_tetrimino(*test_board, tetrimino_rotation, i, highest_drop_height);
+            }
         }
     }, tetrimino.tetrimino_rotations);
 }

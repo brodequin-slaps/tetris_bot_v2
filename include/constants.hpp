@@ -30,8 +30,8 @@ constexpr height_t BLOCKS_H = 16;
 constexpr height_t FULL_COLUMN = gpow<height_t, 2, BLOCKS_H>() - 1;
 
 //genetic algorithm parameters
-constexpr int NUM_STEPS = 500000;
-constexpr int POP_SIZE = 150;
+constexpr int NUM_STEPS = 1000000;
+constexpr int POP_SIZE = 50;
 constexpr int NB_GEN = 1000;
 constexpr int MIN_PARAM_VAL = -10;
 constexpr int MAX_PARAM_VAL = 10;

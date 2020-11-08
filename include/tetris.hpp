@@ -10,8 +10,10 @@
 #include "Board.hpp"
 #include "helpers.hpp"
 
+#define find_best_board_f find_best_board_internet<1>
+
 //returns the number of deaths
-uint64_t tetris_play_v2(uint64_t num_steps, std::vector<double> const& params)
+double tetris_play(uint64_t num_steps, std::vector<double> const& params = {})
 {
     using namespace std;
 
@@ -31,6 +33,7 @@ uint64_t tetris_play_v2(uint64_t num_steps, std::vector<double> const& params)
 
     int i = 0;
     uint64_t death_count = 0;
+
     while (i++ < num_steps)
     {
         int tet_rand = tetrimino_rand();
@@ -39,44 +42,44 @@ uint64_t tetris_play_v2(uint64_t num_steps, std::vector<double> const& params)
             case 0:
                 {
                     auto tetrimino = get<0>(tetriminos);
-                    find_best_board_v2(tetrimino, input_board, best_board, test_board, best_score, params);
+                    find_best_board_f(tetrimino, input_board, best_board, test_board, best_score, params);
                     break;
                 }
             case 1:
                 {
                     auto tetrimino = get<1>(tetriminos);
-                    find_best_board_v2(tetrimino, input_board, best_board, test_board, best_score, params);
+                    find_best_board_f(tetrimino, input_board, best_board, test_board, best_score, params);
                     break;
                 }
             case 2:
                 {
                     auto tetrimino = get<2>(tetriminos);
-                    find_best_board_v2(tetrimino, input_board, best_board, test_board, best_score, params);
+                    find_best_board_f(tetrimino, input_board, best_board, test_board, best_score, params);
                     break;
                 }
             case 3:
                 {
                     auto tetrimino = get<3>(tetriminos);
-                    find_best_board_v2(tetrimino, input_board, best_board, test_board, best_score, params);
+                    find_best_board_f(tetrimino, input_board, best_board, test_board, best_score, params);
                     break;
                 }
             case 4:
                 {
                     auto tetrimino = get<4>(tetriminos);
-                    find_best_board_v2(tetrimino, input_board, best_board, test_board, best_score, params);
+                    find_best_board_f(tetrimino, input_board, best_board, test_board, best_score, params);
                     break;
                 }
             case 5:
                 {
                     auto tetrimino = get<5>(tetriminos);
-                    find_best_board_v2(tetrimino, input_board, best_board, test_board, best_score, params);
+                    find_best_board_f(tetrimino, input_board, best_board, test_board, best_score, params);
                     break;
                 }
                 break;
             case 6:
                 {
                     auto tetrimino = get<6>(tetriminos);
-                    find_best_board_v2(tetrimino, input_board, best_board, test_board, best_score, params);
+                    find_best_board_f(tetrimino, input_board, best_board, test_board, best_score, params);
                     break;
                 }
 
@@ -100,5 +103,5 @@ uint64_t tetris_play_v2(uint64_t num_steps, std::vector<double> const& params)
     delete test_board;
     delete input_board;
 
-    return death_count;
+    return (double)death_count;
 }

@@ -1,4 +1,4 @@
-# Install script for directory: /home/sam/dev/c++/tetris_bot_v2
+# Install script for directory: /workspaces/tetris_bot_v2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/sam/dev/c++/tetris_bot_v2/Release/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/workspaces/tetris_bot_v2/Release/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

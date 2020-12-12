@@ -26,7 +26,7 @@ struct Tetris_Optimizer
 };
 
 template<typename T, T... ints>
-galgo::GeneticAlgorithm<double> get_ga(std::integer_sequence<T, ints...> int_seq)
+galgo::GeneticAlgorithm<double> get_ga(std::integer_sequence<T, ints...> int_seq) noexcept
 {
     return galgo::GeneticAlgorithm<double>{Tetris_Optimizer<double>::Objective, POP_SIZE, NB_GEN, true, ((ints, galgo::Parameter<double>({MIN_PARAM_VAL, MAX_PARAM_VAL})))...};
 }

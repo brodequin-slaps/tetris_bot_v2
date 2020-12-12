@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <chrono>
 #include <type_traits>
+#include <tuple>
 
 #include "constants.hpp"
 
@@ -58,11 +59,3 @@ auto measure_time(Fn const& fn)
 	};
 }
 
-template<typename... Args> constexpr
-auto gen_tuple_accessor(std::tuple<Args...> tup)
-{
-	struct internal
-	{
-		
-	};
-}

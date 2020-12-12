@@ -108,20 +108,12 @@ cstdint
 math.h
 -
 
-/workspaces/tetris_bot_v2/include/constexpr_func_arr.hpp
-variant
--
-array
--
-
 /workspaces/tetris_bot_v2/include/helpers.hpp
 cstdint
 -
 chrono
 -
 type_traits
--
-tuple
 -
 constants.hpp
 /workspaces/tetris_bot_v2/include/constants.hpp
@@ -143,8 +135,6 @@ Board.hpp
 /workspaces/tetris_bot_v2/include/Board.hpp
 helpers.hpp
 /workspaces/tetris_bot_v2/include/helpers.hpp
-constexpr_func_arr.hpp
-/workspaces/tetris_bot_v2/include/constexpr_func_arr.hpp
 
 /workspaces/tetris_bot_v2/src/main.cpp
 iostream

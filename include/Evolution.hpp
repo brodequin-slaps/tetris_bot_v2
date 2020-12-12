@@ -32,7 +32,7 @@ void RWS(galgo::Population<T>& x)
       while (fsum >= 0.0) {
          #ifndef NDEBUG
          if (j == x.popsize()) {
-            throw std::invalid_argument("Error: in RWS(galgo::Population<T>&) index j cannot be equal to population size.");
+            //throw std::invalid_argument("Error: in RWS(galgo::Population<T>&) index j cannot be equal to population size.");
          }
          #endif
          fsum -= x(j)->fitness;
@@ -69,7 +69,7 @@ void SUS(galgo::Population<T>& x)
       while (fsum <= ptr) {
          #ifndef NDEBUG
          if (j == x.popsize()) {
-            throw std::invalid_argument("Error: in SUS(galgo::Population<T>&) index j cannot be equal to population size.");
+            //throw std::invalid_argument("Error: in SUS(galgo::Population<T>&) index j cannot be equal to population size.");
          }
          #endif
          fsum += x(j)->fitness;
@@ -111,7 +111,7 @@ void RNK(galgo::Population<T>& x)
       while (rsum > 0) {
          #ifndef NDEBUG
          if (j == popsize) {
-            throw std::invalid_argument("Error: in RNK(galgo::Population<T>&) index j cannot be equal to population size.");
+            //throw std::invalid_argument("Error: in RNK(galgo::Population<T>&) index j cannot be equal to population size.");
          }
          #endif
          rsum -= rank[j];
@@ -152,7 +152,7 @@ void RSP(galgo::Population<T>& x)
       while (rsum >= 0.0) {
          #ifndef NDEBUG
          if (j == popsize) {
-            throw std::invalid_argument("Error: in RSP(galgo::Population<T>&) index j cannot be equal to population size.");
+            //throw std::invalid_argument("Error: in RSP(galgo::Population<T>&) index j cannot be equal to population size.");
          }
          #endif
          rsum -= rank[j];
@@ -230,7 +230,7 @@ void TRS(galgo::Population<T>& x)
       while (fsum >= 0) {
          #ifndef NDEBUG
          if (j == popsize) {
-            throw std::invalid_argument("Error: in TRS(galgo::Population<T>&) index j cannot be equal to population size.");
+            //throw std::invalid_argument("Error: in TRS(galgo::Population<T>&) index j cannot be equal to population size.");
          }
          #endif
          fsum -= x(j)->fitness;

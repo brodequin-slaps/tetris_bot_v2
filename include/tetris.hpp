@@ -9,15 +9,19 @@
 
 #include "Board.hpp"
 #include "helpers.hpp"
+#include "constexpr_func_arr.hpp"
 
 #define find_best_board_f find_best_board_internet<1>
 
+constexpr auto tetriminos = get_tetriminos();
+
 //returns the number of deaths
-double tetris_play(uint64_t num_steps, std::vector<double> const& params = {})
+double tetris_play(uint64_t num_steps, std::vector<double> const& params = {}) noexcept
 {
     using namespace std;
 
-    static constexpr auto tetriminos = get_tetriminos();
+    constexpr auto tupfn = [](){return tetriminos;};
+    constexpr auto sw = tuple_switch<find_best_board_tuple_switch>(tupfn);
 
     mt19937::result_type seed = time(0);
     auto tetrimino_rand = bind(
@@ -37,6 +41,8 @@ double tetris_play(uint64_t num_steps, std::vector<double> const& params = {})
     while (i++ < num_steps)
     {
         int tet_rand = tetrimino_rand();
+        
+        //sw(tet_rand, input_board, best_board, test_board, best_score, params);
         switch (tet_rand)
         {
             case 0:
@@ -96,6 +102,14 @@ double tetris_play(uint64_t num_steps, std::vector<double> const& params = {})
         else
         {
             swap(input_board, best_board);
+        }
+
+        if constexpr (false)
+        {
+            print(*input_board);
+            cout << "Press Enter to Continue";
+            cin.ignore();
+            cout << endl;
         }
     }
 

@@ -223,7 +223,7 @@ const CHR<T>& Population<T>::operator()(int pos) const
 {
    #ifndef NDEBUG
    if (pos > ptr->popsize - 1) {
-      throw std::invalid_argument("Error: in galgo::Population<T>::operator()(int), exceeding current population memory.");
+      //throw std::invalid_argument("Error: in galgo::Population<T>::operator()(int), exceeding current population memory.");
    }
    #endif
 
@@ -238,7 +238,7 @@ const CHR<T>& Population<T>::operator[](int pos) const
 {
    #ifndef NDEBUG
    if (pos > ptr->matsize - 1) {
-      throw std::invalid_argument("Error: in galgo::Population<T>::operator[](int), exceeding mating population memory.");
+      //throw std::invalid_argument("Error: in galgo::Population<T>::operator[](int), exceeding mating population memory.");
    }
    #endif
 
@@ -289,10 +289,10 @@ inline void Population<T>::select(int pos)
 {
    #ifndef NDEBUG
    if (pos > ptr->popsize - 1) {
-      throw std::invalid_argument("Error: in galgo::Population<T>::select(int), exceeding current population memory.");
+      //throw std::invalid_argument("Error: in galgo::Population<T>::select(int), exceeding current population memory.");
    }
    if (matidx == ptr->matsize) {
-      throw std::invalid_argument("Error: in galgo::Population<T>::select(int), exceeding mating population memory.");
+      //throw std::invalid_argument("Error: in galgo::Population<T>::select(int), exceeding mating population memory.");
    }
    #endif
 

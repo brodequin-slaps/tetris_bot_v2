@@ -14,14 +14,13 @@
 #define find_best_board_f find_best_board_internet<1>
 
 constexpr auto tetriminos = get_tetriminos();
+constexpr auto tupfn = [](){return tetriminos;}; // tricks because passing the constexpr tuple would faire, but the constexpr lambda works xD
+constexpr auto sw = tuple_switch<find_best_board_tuple_switch>(tupfn);
 
 //returns the number of deaths
 double tetris_play(uint64_t num_steps, std::vector<double> const& params = {}) noexcept
 {
     using namespace std;
-
-    constexpr auto tupfn = [](){return tetriminos;};
-    constexpr auto sw = tuple_switch<find_best_board_tuple_switch>(tupfn);
 
     mt19937::result_type seed = time(0);
     auto tetrimino_rand = bind(
@@ -30,7 +29,7 @@ double tetris_play(uint64_t num_steps, std::vector<double> const& params = {}) n
 
     Board* best_board = new Board{};
     Board* test_board = new Board{};
-    Board* input_board = new Board{};
+    Board* input_board = new Board{}; 
     double best_score;
 
     reset(*input_board);
@@ -42,57 +41,7 @@ double tetris_play(uint64_t num_steps, std::vector<double> const& params = {}) n
     {
         int tet_rand = tetrimino_rand();
         
-        //sw(tet_rand, input_board, best_board, test_board, best_score, params);
-        switch (tet_rand)
-        {
-            case 0:
-                {
-                    auto tetrimino = get<0>(tetriminos);
-                    find_best_board_f(tetrimino, input_board, best_board, test_board, best_score, params);
-                    break;
-                }
-            case 1:
-                {
-                    auto tetrimino = get<1>(tetriminos);
-                    find_best_board_f(tetrimino, input_board, best_board, test_board, best_score, params);
-                    break;
-                }
-            case 2:
-                {
-                    auto tetrimino = get<2>(tetriminos);
-                    find_best_board_f(tetrimino, input_board, best_board, test_board, best_score, params);
-                    break;
-                }
-            case 3:
-                {
-                    auto tetrimino = get<3>(tetriminos);
-                    find_best_board_f(tetrimino, input_board, best_board, test_board, best_score, params);
-                    break;
-                }
-            case 4:
-                {
-                    auto tetrimino = get<4>(tetriminos);
-                    find_best_board_f(tetrimino, input_board, best_board, test_board, best_score, params);
-                    break;
-                }
-            case 5:
-                {
-                    auto tetrimino = get<5>(tetriminos);
-                    find_best_board_f(tetrimino, input_board, best_board, test_board, best_score, params);
-                    break;
-                }
-                break;
-            case 6:
-                {
-                    auto tetrimino = get<6>(tetriminos);
-                    find_best_board_f(tetrimino, input_board, best_board, test_board, best_score, params);
-                    break;
-                }
-
-            default:
-                std::cout << "big error" << std::endl; 
-                break;
-        }
+        sw(tet_rand, input_board, best_board, test_board, best_score, params);
 
         if (best_score == -INFINITY)
         {

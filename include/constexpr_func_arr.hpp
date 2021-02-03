@@ -207,15 +207,15 @@ template<typename Variant, typename Ret, typename... Args>
 struct variant_closure<Variant, Ret, types_t<Args...>>
 {
 	template<typename Var_t, typename Fn>
-	constexpr variant_closure(Var_t variant_val, Fn&& fn) : variant{ variant_val }, fn{ fn } {}
+	constexpr variant_closure(Var_t variant_val, Fn fn) : variant{ variant_val }, fn {fn} {}
 
-	constexpr Ret operator()(Args... args) const& noexcept
+	inline constexpr Ret operator()(Args&&... args) const& noexcept
 	{
 		return fn(variant, forward<Args>(args)...);
 	}
 
-	Sig<Ret, Variant, Args...> fn;
-	Variant variant;
+	Sig<Ret, Variant const&, Args&&...> const fn;
+	Variant const variant;
 };
 
 template<template<typename> typename Fn, typename TupFn, typename Ret, typename T, typename U, typename V, typename X>
@@ -230,9 +230,11 @@ struct gen_functor_array_inner<Fn, Ret, TupFn, types_t<Args...>, types_t<Tup_Ts.
 		return array<variant_closure<variant_t, Ret, types_t<Args...>>, sizeof...(Tup_Ts)>{
 			variant_closure<variant_t, Ret, types_t<Args...>>{
 				get<Is>(tupfn()),
-				[](variant_t vrnt, Args... args) noexcept -> Ret
+				[](variant_t const& vrnt, Args&&... args) noexcept-> Ret
 				{
-					return Fn<Tup_Ts>{}(get<Tup_Ts>(vrnt), args...);
+					constexpr auto fn_tup = Fn<Tup_Ts>{};
+					return fn_tup(get<Tup_Ts>(vrnt), forward<Args>(args)...);
+					//return Fn<Tup_Ts>{}(get<Tup_Ts>(vrnt), forward<Args>(args)...);
 				}} ...
 		};
 	};	

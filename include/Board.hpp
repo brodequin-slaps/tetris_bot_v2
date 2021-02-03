@@ -228,6 +228,43 @@ double evaluate_board_GA_internet_no_params(Board const& board, height_t& line_m
         //params[7]*row_transitions;
 }
 
+double evaluate_board_GA_internet_no_params_splittedfor(Board const& board, height_t& line_mask)  noexcept
+{
+    uint16_t holes = 0;
+    uint16_t aggregate_height = 0;
+    uint16_t completed_lines = 0;
+    uint16_t bumpiness = 0;
+
+    height_t prev_height = col_height(board[0]);
+    aggregate_height += prev_height;
+    line_mask = board[0];
+    holes += prev_height - __builtin_popcount(board[0]);
+
+    for (int i = 1; i < board.size(); i++)
+    {
+
+    }
+
+    for (int i = 1; i < board.size(); i++)
+    {
+        height_t height = col_height(board[i]);
+        aggregate_height += height;
+        holes += height - __builtin_popcount(board[i]);
+        bumpiness += abs(prev_height - height);
+        prev_height = height;
+        line_mask &= board[i];
+    }
+
+    int destroyed = __builtin_popcount(line_mask);
+
+    static const std::vector<double> params{-7.41268024719615503670411271741613745689392089843750, 9.55321583886473035818198695778846740722656250000000, -9.36675059128709897038334020180627703666687011718750, -3.28542000457770644317179176141507923603057861328125, };
+
+    return params[0]*aggregate_height +
+        params[1]*destroyed +
+        params[2]*holes +
+        params[3]*bumpiness;
+}
+
 double evaluate_board_GA_v1(Board const& board, uint8_t destroyedLines, height_t dropHeight, std::vector<double> const& params) noexcept
 {
     //these are the optimized params
